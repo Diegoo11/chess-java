@@ -87,33 +87,21 @@ public class Board extends JFrame {
   private class ListenerBtn implements ActionListener {
     public void actionPerformed(ActionEvent e) {
       Piece startBtn = (Piece) e.getSource();
-      if(finishBtn == null) {
-        if(startBtn instanceof VoidCel) return; // si es un VoidCel no hace nada (no se puede mover
-        System.out.println("Clicked 1");
-        finishBtn = startBtn; // primer click se almacena el peon
-      } else { // direccion final
-        System.out.println("Clicked 2");
-        for (int i = 0; i < 8; i++) {
-          for (int j = 0; j < 8; j++) {
-            remove(board[i][j]);
-          }
-        }
+      if (finishBtn == null) {
+        if (startBtn instanceof VoidCel) return;
+        startBtn.select();
+        finishBtn = startBtn;
+      } else {
+        removeBoard();
 
-        board[finishBtn.getPositionX()][finishBtn.getPositionY()] = new VoidCel(finishBtn.getPositionX(), finishBtn.getPositionY());
-        finishBtn.setPositionX(startBtn.getPositionX());
-        finishBtn.setPositionY(startBtn.getPositionY());
-        board[startBtn.getPositionX()][startBtn.getPositionY()] = finishBtn;
+        changePositions(board, finishBtn, startBtn);
 
-        for (int i = 0; i < 8; i++) {
-          for (int j = 0; j < 8; j++) {
-            add(board[i][j]);
-          }
-        }
-  
+        reFill();
+
+        finishBtn.unselect();
         finishBtn = null;
-        validate();
+
         revalidate();
-        repaint();
       }
     }
   }
@@ -121,4 +109,27 @@ public class Board extends JFrame {
   public static void main(String[] args) {
     new Board();
   };
+
+  public void removeBoard() {
+    for (int i = 0; i < 8; i += 1) {
+      for (int j = 0; j < 8; j += 1) {
+        remove(board[i][j]);
+      }
+    }
+  }
+
+  public void reFill() {
+    for (int i = 0; i < 8; i++) {
+      for (int j = 0; j < 8; j++) {
+        add(board[i][j]);
+      }
+    }
+  }
+
+  public void changePositions(Piece[][] board, Piece p1, Piece p2) {
+    board[p1.getPositionX()][p1.getPositionY()] = new VoidCel(p1.getPositionX(), p1.getPositionY());
+    board[p1.getPositionX()][p1.getPositionY()].addActionListener(new ListenerBtn());
+    p1.setPositions(p2.getPositionX(), p2.getPositionY());
+    board[p2.getPositionX()][p2.getPositionY()] = p1;
+  }
 }
