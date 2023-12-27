@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -68,7 +69,7 @@ public class Piece extends JButton {
     setBackground(Color.RED);
   };
 
-  public void unselect() {
+  public void defaultColor() {
     setBackground(color);
   };
 
@@ -81,5 +82,10 @@ public class Piece extends JButton {
     } else {
       setBlack();
     }
-  }
+  };
+
+  public ArrayList<Piece> getPosiblePositions (Piece[][] board) {
+    ArrayList<Piece> positions = new ArrayList<Piece>();
+    return positions;
+  };
 }

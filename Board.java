@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
 public class Board extends JFrame {
   private Piece[][] board = new Piece[8][8];
   private Piece finishBtn = null;
@@ -89,7 +90,10 @@ public class Board extends JFrame {
       Piece startBtn = (Piece) e.getSource();
       if (finishBtn == null) {
         if (startBtn instanceof VoidCel) return;
+
         startBtn.select();
+        paintPositions(startBtn.getPosiblePositions(board));
+
         finishBtn = startBtn;
       } else {
         removeBoard();
@@ -98,7 +102,7 @@ public class Board extends JFrame {
 
         reFill();
 
-        finishBtn.unselect();
+        finishBtn.defaultColor();
         finishBtn = null;
 
         revalidate();
@@ -113,6 +117,7 @@ public class Board extends JFrame {
   public void removeBoard() {
     for (int i = 0; i < 8; i += 1) {
       for (int j = 0; j < 8; j += 1) {
+        board[i][j].defaultColor();
         remove(board[i][j]);
       }
     }
@@ -120,7 +125,7 @@ public class Board extends JFrame {
 
   public void reFill() {
     for (int i = 0; i < 8; i++) {
-      for (int j = 0; j < 8; j++) {
+      for (int j = 0; j < 8; j++) { 
         add(board[i][j]);
       }
     }
@@ -131,5 +136,11 @@ public class Board extends JFrame {
     board[p1.getPositionX()][p1.getPositionY()].addActionListener(new ListenerBtn());
     p1.setPositions(p2.getPositionX(), p2.getPositionY());
     board[p2.getPositionX()][p2.getPositionY()] = p1;
+  }
+
+  public void paintPositions(ArrayList<Piece> positions) {
+    for (Piece position : positions) {
+      position.isPosible();
+    }
   }
 }
