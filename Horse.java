@@ -7,4 +7,6 @@ public class Horse extends Piece{
   public Horse(int positionX, int positionY, int team) {
     super(positionX, positionY, team == 0 ? whiteIcon : blackIcon, team);
   };
+  
+  
 }
