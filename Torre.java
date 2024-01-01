@@ -13,19 +13,10 @@ public class Torre extends Piece {
   public ArrayList<Piece> getPosiblePositions(Piece[][] board) {
     ArrayList<Piece> positions = new ArrayList<Piece>();
 
-    int x = this.getPositionX();
-    int y = this.getPositionY();
+    int x = getPositionX();
+    int y = getPositionY();
 
-    for (int i = x-1; i >= 0; i--) {
-      Piece position = board[i][y];
-      if(position instanceof VoidCel){
-        positions.add(position);
-      }else if(position.getTeam() != this.getTeam()){
-        positions.add(position);
-        break;
-      }
-    }
-    for(int i=x+1; i< board.length; i++){
+    for (int i = x; i >= 0; i -= 1) {
       Piece position = board[i][y];
       if(position instanceof VoidCel){
         positions.add(position);
@@ -35,7 +26,17 @@ public class Torre extends Piece {
       }
     }
 
-    for(int j=y-1; y>=0; j--){
+    for(int i = x; i < board.length; i += 1){
+      Piece position = board[i][y];
+      if(position instanceof VoidCel){
+        positions.add(position);
+      }else if(position.getTeam() != this.getTeam()){
+        positions.add(position);
+        break;
+      }
+    }
+
+    for(int j = y; j >= 0; j -= 1){
       Piece position = board[x][j];
       if(position instanceof VoidCel){
         positions.add(position);
@@ -44,7 +45,8 @@ public class Torre extends Piece {
         break;
       }
     }
-    for(int j=y+1; y< board.length; j--){
+
+    for(int j = y; j < board.length; j += 1){
       Piece position = board[x][j];
       if(position instanceof VoidCel){
         positions.add(position);
