@@ -4,7 +4,9 @@ import java.awt.event.*;
 import java.util.*;
 public class Board extends JFrame {
   private Piece[][] board = new Piece[8][8];
+
   private Piece finishBtn = null;
+  private ArrayList<Piece> posiblePositions;
 
   public Board() {
     for (int i = 0; i < 8; i++) {
@@ -88,21 +90,26 @@ public class Board extends JFrame {
   private class ListenerBtn implements ActionListener {
     public void actionPerformed(ActionEvent e) {
       Piece startBtn = (Piece) e.getSource();
+      
       if (finishBtn == null) {
         if (startBtn instanceof VoidCel) return;
-
+        
         startBtn.select();
-        paintPositions(startBtn.getPosiblePositions(board));
+        
+        posiblePositions = startBtn.getPosiblePositions(board);
+        paintPositions(posiblePositions);
 
         finishBtn = startBtn;
       } else {
         removeBoard();
 
-        changePositions(board, finishBtn, startBtn);
+        changePositions(board, finishBtn, startBtn, posiblePositions);
 
         reFill();
 
         finishBtn.defaultColor();
+
+        posiblePositions = null;
         finishBtn = null;
 
         revalidate();
@@ -131,11 +138,13 @@ public class Board extends JFrame {
     }
   }
 
-  public void changePositions(Piece[][] board, Piece p1, Piece p2) {
-    board[p1.getPositionX()][p1.getPositionY()] = new VoidCel(p1.getPositionX(), p1.getPositionY());
-    board[p1.getPositionX()][p1.getPositionY()].addActionListener(new ListenerBtn());
-    p1.setPositions(p2.getPositionX(), p2.getPositionY());
-    board[p2.getPositionX()][p2.getPositionY()] = p1;
+  public void changePositions(Piece[][] board, Piece p1, Piece p2, ArrayList<Piece> posiblePositions) {
+    if (posiblePositions.contains(p2)) {
+      board[p1.getPositionX()][p1.getPositionY()] = new VoidCel(p1.getPositionX(), p1.getPositionY());
+      board[p1.getPositionX()][p1.getPositionY()].addActionListener(new ListenerBtn());
+      p1.setPositions(p2.getPositionX(), p2.getPositionY());
+      board[p2.getPositionX()][p2.getPositionY()] = p1;
+    }
   }
 
   public void paintPositions(ArrayList<Piece> positions) {
