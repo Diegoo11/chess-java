@@ -14,45 +14,62 @@ public class Alfil extends Piece{
     int x = this.getPositionX();
     int y = this.getPositionY();
     //izquierda-arriba
-    for (int i=x-1, j=y-1; i>=0 || j>=0; i++, j++) {
-      Piece position = board[i][j];
-      if(position instanceof VoidCel){
-        positions.add(position);
-      }else if(position.getTeam() != this.getTeam()){
-        positions.add(position);
-        break;
+    for (int i = 1; i < board.length; i += 1) {
+      if (x + i < board.length && y + i < board.length) {
+        Piece position = board[x + i][y + i];
+        if(position instanceof VoidCel){
+          positions.add(position);
+        } else if(position.getTeam() != this.getTeam()){
+          positions.add(position);
+          break;
+        } else if(position.getTeam() == this.getTeam()){
+          break;
+        }
       }
     }
-    //derecha-arriba
-    for (int i=x+1, j=y-1; i>=0 || j<=board.length; i--, j++) {
-      Piece position = board[i][j];
-      if(position instanceof VoidCel){
-        positions.add(position);
-      }else if(position.getTeam() != this.getTeam()){
-        positions.add(position);
-        break;
+
+    for (int i = 1; i < board.length; i += 1) {
+      if (x - i > -1 && y - i > -1) {
+        Piece position = board[x - i][y - i];
+        if(position instanceof VoidCel){
+          positions.add(position);
+        } else if(position.getTeam() != this.getTeam()){
+          positions.add(position);
+          break;
+        } else if(position.getTeam() == this.getTeam()){
+          break;
+        }
       }
     }
-    //izquierda-abajo
-    for(int i=x+1, j=y+1; i<=board.length || j>=0; i++, j--){
-      Piece position = board[i][j];
-      if(position instanceof VoidCel){
-        positions.add(position);
-      }else if(position.getTeam() != this.getTeam()){
-        positions.add(position);
-        break;
+
+    for (int i = 1; i < board.length; i += 1) {
+      if (x + i < board.length && y - i > -1) {
+        Piece position = board[x + i][y - i];
+        if(position instanceof VoidCel){
+          positions.add(position);
+        } else if(position.getTeam() != this.getTeam()){
+          positions.add(position);
+          break;
+        } else if(position.getTeam() == this.getTeam()){
+          break;
+        }
       }
     }
-    //derecha-abajo
-    for(int i=x+1, j=y+1; i<=board.length || j<=board.length; i++, j++){
-      Piece position = board[i][j];
-      if(position instanceof VoidCel){
-        positions.add(position);
-      }else if(position.getTeam() != this.getTeam()){
-        positions.add(position);
-        break;
+
+    for (int i = 1; i < board.length; i += 1) {
+      if (x - i > -1 && y + i < board.length) {
+        Piece position = board[x - i][y + i];
+        if(position instanceof VoidCel){
+          positions.add(position);
+        } else if(position.getTeam() != this.getTeam()){
+          positions.add(position);
+          break;
+        } else if(position.getTeam() == this.getTeam()){
+          break;
+        }
       }
     }
+    
     return positions;
   }
   
