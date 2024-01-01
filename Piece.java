@@ -85,4 +85,16 @@ public abstract class Piece extends JButton {
   };
 
   public abstract  ArrayList<Piece> getPosiblePositions (Piece[][] board);
+
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+      return false;
+    }
+
+    Piece piece = (Piece) obj;
+    return positionX == piece.positionX && positionY == piece.positionY && team == piece.team;
+  }
 }
