@@ -23,8 +23,8 @@ public class Peon extends Piece {
         positions.add(position);
       }
     }
-    if (getPositionX() + 1 >= 0 || getPositionX() + 1 <= 7
-        && getPositionY() - 1 >= 0 || getPositionY() + 1 <= 7) {
+    if (getPositionX() + 1 >= 0 && getPositionX() + 1 <= 7
+        && getPositionY() - 1 >= 0 && getPositionY() + 1 <= 7) {
       Piece position = board[getPositionX() + 1][getPositionY() + 1];
 
       if (!(position instanceof VoidCel) && position.getTeam() != getTeam()) {
