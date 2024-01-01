@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 
-public class Piece extends JButton {
+public abstract class Piece extends JButton {
   private int positionX;
   private int positionY;
   private int team;
@@ -84,8 +84,5 @@ public class Piece extends JButton {
     }
   };
 
-  public ArrayList<Piece> getPosiblePositions (Piece[][] board) {
-    ArrayList<Piece> positions = new ArrayList<Piece>();
-    return positions;
-  };
+  public abstract  ArrayList<Piece> getPosiblePositions (Piece[][] board);
 }
