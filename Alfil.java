@@ -13,7 +13,6 @@ public class Alfil extends Piece{
     ArrayList<Piece> positions = new ArrayList<Piece>();
     int x = this.getPositionX();
     int y = this.getPositionY();
-    //izquierda-arriba
     for (int i = 1; i < board.length; i += 1) {
       if (x + i < board.length && y + i < board.length) {
         Piece position = board[x + i][y + i];
