@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-public class King extends Piece{
+public class King extends Piece implements Serializable{
   private static ImageIcon whiteIcon = new ImageIcon("./assets/whiteKing.png");
   private static ImageIcon blackIcon = new ImageIcon("./assets/blackKing.png");
 
@@ -30,4 +31,7 @@ public class King extends Piece{
     }
     return positions;
   };
+  public String toString(){
+    return "Rey "+super.toString();
+  }
 }

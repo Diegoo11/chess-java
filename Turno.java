@@ -8,7 +8,9 @@ public class Turno {
   public int getTurno() {
     return turno;
   }
-
+  public int getOpponentTeam() {
+    return turno == 0 ? 1 : 0;
+  }
   public void played() {
     turno = turno == 0 ? 1 : 0;
   }

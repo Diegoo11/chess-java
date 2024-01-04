@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-public class Horse extends Piece{
+public class Horse extends Piece implements Serializable{
   private static ImageIcon whiteIcon = new ImageIcon("./assets/whiteHorse.png");
   private static ImageIcon blackIcon = new ImageIcon("./assets/blackHorse.png");
 
@@ -33,6 +34,7 @@ public class Horse extends Piece{
   private boolean isValidPosition(int x, int y) {
     return x >= 0 && x < 8 && y >= 0 && y < 8;
   }
-  
-  
+  public String toString(){
+    return "Caballo "+super.toString();
+  } 
 }

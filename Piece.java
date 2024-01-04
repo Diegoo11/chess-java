@@ -1,10 +1,11 @@
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.*;
 
 
-public abstract class Piece extends JButton {
+public abstract class Piece extends JButton implements Serializable{
   private int positionX;
   private int positionY;
   private int team;
@@ -96,5 +97,8 @@ public abstract class Piece extends JButton {
 
     Piece piece = (Piece) obj;
     return positionX == piece.positionX && positionY == piece.positionY && team == piece.team;
+  }
+  public String toString(){
+    return "=> Team:"+getTeam()+" x:"+getPositionX()+" <-> y:"+getPositionY();
   }
 }

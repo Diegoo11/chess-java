@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class Peon extends Piece {
+public class Peon extends Piece implements Serializable {
   private static ImageIcon whiteIcon = new ImageIcon("./assets/whitePeon.png");
   private static ImageIcon blackIcon = new ImageIcon("./assets/blackPeon.png");
   private boolean firstMove = true;
@@ -41,4 +42,7 @@ public class Peon extends Piece {
     firstMove = false;
     return positions;
   };
+  public String toString(){
+    return "Peon "+super.toString();
+  }
 }
