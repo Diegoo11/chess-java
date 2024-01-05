@@ -1,7 +1,6 @@
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class VoidCel extends Piece implements Serializable{
+public class VoidCel extends Piece {
   public VoidCel(int positionX, int positionY) {
     super(positionX, positionY, null, -1);
   };

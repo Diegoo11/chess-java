@@ -22,7 +22,6 @@ public class Board extends JFrame {
 
   private class ListenerBtn implements ActionListener {
     public void actionPerformed(ActionEvent e) {
-      System.out.println(turno.getTurno());
       if (e.getSource() instanceof Piece) {
         Piece startBtn = (Piece) e.getSource();
         if (finishBtn == null) {

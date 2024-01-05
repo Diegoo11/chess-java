@@ -1,9 +1,8 @@
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-public class King extends Piece implements Serializable{
+public class King extends Piece{
   private static ImageIcon whiteIcon = new ImageIcon("./assets/whiteKing.png");
   private static ImageIcon blackIcon = new ImageIcon("./assets/blackKing.png");
 

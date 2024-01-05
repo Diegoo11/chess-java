@@ -1,9 +1,8 @@
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-public class Torre extends Piece implements Serializable {
+public class Torre extends Piece {
   private static ImageIcon whiteIcon = new ImageIcon("./assets/whiteTorre.png");
   private static ImageIcon blackIcon = new ImageIcon("./assets/blackTorre.png");
 

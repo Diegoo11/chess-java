@@ -1,9 +1,9 @@
-import java.io.Serializable;
+
 import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class Peon extends Piece implements Serializable {
+public class Peon extends Piece {
   private static ImageIcon whiteIcon = new ImageIcon("./assets/whitePeon.png");
   private static ImageIcon blackIcon = new ImageIcon("./assets/blackPeon.png");
   private boolean firstMove = true;

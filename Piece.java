@@ -1,11 +1,10 @@
 import java.awt.Color;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.*;
 
 
-public abstract class Piece extends JButton implements Serializable{
+public abstract class Piece extends JButton {
   private int positionX;
   private int positionY;
   private int team;
