@@ -14,4 +14,8 @@ public class Turno {
   public void played() {
     turno = turno == 0 ? 1 : 0;
   }
+
+  public void resetTurno() {
+    turno = 0;
+  }
 }
