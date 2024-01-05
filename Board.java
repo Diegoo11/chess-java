@@ -15,7 +15,6 @@ public class Board extends JFrame {
   private JButton btnRecover = new JButton("RECOVER GAME");
   private JButton btnNewPLay = new JButton("NEW PLAY");
   private JPanel box2;
-  private final String FILE_NAME = "lastSave.bin";
 
   public Board() {
     newGame();
@@ -23,6 +22,7 @@ public class Board extends JFrame {
 
   private class ListenerBtn implements ActionListener {
     public void actionPerformed(ActionEvent e) {
+      System.out.println(turno.getTurno());
       if (e.getSource() instanceof Piece) {
         Piece startBtn = (Piece) e.getSource();
         if (finishBtn == null) {
@@ -59,47 +59,35 @@ public class Board extends JFrame {
         }
       } else {
         if (e.getSource() == (JButton) btnSave) {
-          System.out.println("hola1");
           saveGame();
         }
         if (e.getSource() == (JButton) btnRecover) {
-          System.out.println("hola12");
           recoverGame();
-          box1.removeAll();
-          reFill();
-          box1.revalidate();
         }
         if (e.getSource() == (JButton) btnNewPLay) {
           resetGame();
+          turno.resetTurno();
         }
       }
     }
   }
 
   public void resetGame() {
-    box1.removeAll();
+    removeBoard();
     newGame();
     reFill();
-    revalidate();
+    box1.revalidate();
+    box1.repaint();
   }
 
   public void saveGame() {
-
-    String word = JOptionPane.showInputDialog(box1, "Enter file name");
     try {
-      ObjectOutputStream fileOut = new ObjectOutputStream(new FileOutputStream("./playFile/" + word));
-      DataOutputStream lastName = new DataOutputStream(new FileOutputStream("./playFile/"+FILE_NAME));
-      lastName.writeChars(word);
-      lastName.writeChar(0);
-      lastName.close();
-      for (int i = 0; i < board.length; i++) {
-        for (int j = 0; j < board[i].length; j++) {
-          fileOut.writeObject(board[i][j]);
-        }
-      }
-      // fileOut.writeObject(turno);
+      ObjectOutputStream fileOut = new ObjectOutputStream(new FileOutputStream("./playFile/game.bin"));
+
+      fileOut.writeObject(board);
+
       fileOut.close();
-      JOptionPane.showMessageDialog(null, "Archivo cerrado exitosamente");
+
     } catch (Exception e) {
       JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
     }
@@ -107,22 +95,25 @@ public class Board extends JFrame {
 
   public void recoverGame() {
     try {
-      DataInputStream newName = new DataInputStream(new FileInputStream("./playFile/"+FILE_NAME));
-      String fileName = "";
-      char c;
-      while((c = newName.readChar())!=0){
-        fileName +=c;
-      }
-      newName.close();
-      ObjectInputStream fileIn = new ObjectInputStream(new FileInputStream("./playFile/" +fileName));
-      for (int i = 0; i < board.length; i++) {
-        for (int j = 0; j < board[i].length; j++) {
-          board[i][j] = (Piece) fileIn.readObject();
+      removeBoard();
+
+      ObjectInputStream fileIn = new ObjectInputStream(new FileInputStream("./playFile/game.bin"));
+
+      board = (Piece[][]) fileIn.readObject();
+
+      for (int i = 0; i < 8; i += 1) {
+        for (int j = 0; j < 8; j += 1) {
+          board[i][j].addActionListener(new ListenerBtn());
         }
       }
 
-      JOptionPane.showMessageDialog(null, "Archivo abierto exitosamente");
       fileIn.close();
+
+      reFill();
+
+      box1.revalidate();
+      box1.repaint();
+
     } catch (Exception e) {
       JOptionPane.showMessageDialog(box1, "ERROR: " +e+"");
     }
@@ -238,6 +229,7 @@ public class Board extends JFrame {
         board[i][j].addActionListener(new ListenerBtn());
       }
     }
+    btnNewPLay.addActionListener(new ListenerBtn());
     btnSave.addActionListener(new ListenerBtn());
     btnRecover.addActionListener(new ListenerBtn());
     setTitle("Game-Chess");
